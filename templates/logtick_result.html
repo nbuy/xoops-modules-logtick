@@ -1,0 +1,35 @@
+<h2><{$title}></h2>
+<div id="timestamp"><{$timestamp}></div>
+<{if $logs}>
+<div><{$current}>/<{$maxpage}> &nbsp; &nbsp; <{$pagenav}></div>
+<table class="outer" cellspacing="0" width="100%">
+  <tr>
+    <th><{$smarty.const._MD_DATETIME}></th>
+    <{if $showuser}>
+    <th><{$smarty.const._MD_LOGUSER}></th>
+    <{/if}>
+    <th><{$smarty.const._MD_LOGTICK_CATEGORY}></th>
+    <th><{$smarty.const._MD_TIMESPAN}></th>
+    <th><{$smarty.const._MD_COMMENT}></th>
+  </tr>
+  <{foreach from=$logs item=log}>
+  <tr class="<{cycle values="even, odd"}><{$log.class}>">
+    <td class="logdate"><{$log.mdate}></td>
+    <{if $showuser}>
+      <td>
+	<{if $log.luid}>
+	  <a href="<{$xoops_url}>/userinfo.php?uid=<{$log.luid}>"><{$log.uname}></a>
+	<{else}>
+	  <{$anonymous}>
+	<{/if}>
+      </td>
+    <{/if}>
+    <td><{$log.cname}></td>
+    <td><{if $log.span}>(<{$log.span}>)<{/if}></td>
+    <td><{$log.comment}></td>
+  </tr>
+  <{/foreach}>
+</table>
+<{else}>
+  <div class="notice"><{$smarty.const._MD_NODATA}></div>
+<{/if}>

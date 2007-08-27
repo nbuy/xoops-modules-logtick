@@ -1,0 +1,27 @@
+<form action="<{$block.module_url}>/index.php" method="post">
+  <{if $block.categories}>
+  <div class="logcats" id="b_logcat">
+    <{$smarty.const._BL_LOGTICK_CATEGORY}>
+    <select name="catid">
+      <{foreach from=$block.categories item=label key=value}>
+	<option value="<{$value}>"><{$label}></option>
+      <{/foreach}>
+    </select>
+  </div>
+  <{/if}>
+  <select name="span">
+    <option value="30m">.5</option>
+    <option value="1h" selected="selected">1</option>
+    <option value="2h">2</option>
+    <option value="3h">3</option>
+    <option value="4h">4</option>
+    <option value="5h">5</option>
+    <option value="6h">6</option>
+    <option value="7h">7</option>
+    <option value="8h">8</option>
+  </select>
+  <input name="comment" size="10"/>
+  <input type="submit" value="<{$smarty.const._BL_LOGTICK_SUBMIT}>"/>
+  <input type="hidden" name="opt" value="<{$block.options[0]}>"/>
+</form>
+<div class="modanchor" style="text-align: right"><a href="<{$block.module_url}>/"><{$smarty.const._BL_LOGTICK_DETAIL}></a></div>

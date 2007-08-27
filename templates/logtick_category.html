@@ -1,0 +1,68 @@
+<{if $localcss}>
+<style><!--
+<{$localcss}>
+--></style>
+<{/if}>
+<h2>
+  <{if $edit.catid}>
+    <{$smarty.const._MD_CATEGORY_EDIT}>
+  <{else}>
+    <{$smarty.const._MD_CATEGORY_NEW}>
+  <{/if}>
+</h2>
+
+<form action="category.php" method="POST">
+  <table>
+    <tr>
+      <th><{$smarty.const._MD_CATEGORY_NAME}></th>
+      <td>
+	<input type="hidden" name="catid" value="<{$edit.catid}>"/>
+	<input type="text" size="10" name="cname" value="<{$edit.cname|escape}>"/>
+	<input type="submit" value="<{$smarty.const._MD_SUBMIT}>"/>
+      </td>
+    </tr>
+    <tr style="vertical-align: top;">
+      <th><{$smarty.const._MD_CATEGORY_DESC}></th>
+      <td>
+	<textarea name="description"><{$edit.description|escape}></textarea>
+      </td>
+    </tr>
+  </table>
+</form>
+<hr/>
+<{if $categories}>
+<h2><{$smarty.const._MD_CATEGORY_LIST}></h2>
+<form action="category.php" method="post">
+<table class="outer" cellspacing="0">
+<tr>
+  <th></th>
+  <th><{$smarty.const._MD_LOGTICK_CATEGORY}></th>
+  <th><{$smarty.const._MD_CATEGORY_DESC}></th>
+  <th><{$smarty.const._MD_OPERATION}></th>
+</tr>
+<{foreach from=$categories item=cat}>
+  <tr class="<{cycle values="even, odd"}><{$cat.class}>">
+    <td align="center"><input type="checkbox" name="dels[]" value="<{$cat.catid}>"/></td>
+    <td><{$cat.cname}></td>
+    <td><{$cat.description}></td>
+    <td>
+      <{if $cat.cuid == $uid}>
+	<a href="?catid=<{$cat.catid}>"><{$smarty.const._EDIT}></a>
+      <{/if}>
+    </td>
+  </tr>
+<{/foreach}>
+</table>
+<div><input type="submit" value="<{$smarty.const._DELETE}>"/></div>
+</form>
+<{/if}>
+
+<{if $restcats}>
+<h2><{$smarty.const._MD_CATEGORY_REST}></h2>
+<form action="category.php" method="post">
+<{foreach from=$restcats item=cat}>
+  <div><input type="checkbox" name="adds[]" value="<{$cat.catid}>"/> <{$cat.cname}></div>
+<{/foreach}>
+  <input type="submit" value="<{$smarty.const._MD_SUBMIT}>"/>
+</form>
+<{/if}>

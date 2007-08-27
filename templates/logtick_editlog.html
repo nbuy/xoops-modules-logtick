@@ -1,0 +1,34 @@
+<{if $localcss}>
+<style><!--
+<{$localcss}>
+--></style>
+<{/if}>
+
+<{if $xoops_isuser}>
+<div id="logtickform">
+<h2><{$smarty.const._MD_LOGTICK_EDITLOG}></h2>
+<form method="post" name="logtickform">
+  <{if $categories}>
+    <div><b><{$smarty.const._MD_LOGDATE}></b> <{$log.ldate}> &nbsp;&nbsp;
+	 <b><{$smarty.const._MD_MODDATE}></b> <input name="mdate" value="<{$log.mdate}>" size="20"/></div>
+    <a href="category.php"><b><{$smarty.const._MD_LOGTICK_CATEGORY}></b></a>
+      <select name="catid">
+	<{foreach from=$categories item=label key=value}>
+	  <option value="<{$value}>"<{if $value==$log.pcat}> selected="selected"<{/if}>><{$label}></option>
+	<{/foreach}>
+      </select>
+  <{/if}>
+    <select name="span">
+      <{foreach from=$timespans item=label key=value}>
+	<option value="<{$value}>"<{if $value==$log.span}> selected="selected"<{/if}>><{$label}></option>
+      <{/foreach}>
+    </select>
+    <input type="hidden" name="logid" value="<{$log.logid}>"/>
+    <input name="comment" size="30" maxlength="255" value="<{$log.comment}>"/>
+    <div>
+      <input type="submit" name="store"  value="<{$smarty.const._MD_SUBMIT}>"/>
+      &nbsp; <input type="submit" name="delete" value="<{$smarty.const._DELETE}>"/>
+    </div>
+</form>
+</div>
+<{/if}>

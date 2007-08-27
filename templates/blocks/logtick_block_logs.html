@@ -1,0 +1,33 @@
+<table class="outer" cellspacing="0" width="100%">
+  <tr>
+    <th><{$smarty.const._BL_LOGTICK_DATE}></th>
+    <{if $block.showuser}>
+    <th><{$smarty.const._BL_LOGTICK_USER}></th>
+    <{/if}>
+<{*
+    <th><{$smarty.const._BL_LOGTICK_SPAN}></th>
+    <th><{$smarty.const._BL_LOGTICK_CATEGORY}></th>
+*}>
+    <th><{$smarty.const._BL_LOGTICK_COMMENT}></th>
+  </tr>
+  <{foreach from=$block.logs item=log}>
+  <tr class="<{cycle values="even, odd"}>">
+    <td class="logdate"><{$log.mdate}></td>
+    <{if $block.showuser}>
+      <td>
+	<{if $log.luid}>
+	  <a href="<{$xoops_url}>/userinfo.php?uid=<{$log.luid}>"><{$log.uname}></a>
+	<{else}>
+	  <{$block.anonymous}>
+	<{/if}>
+      </td>
+    <{/if}>
+<{*
+    <td><{if $log.span}>(<{$log.span}>)<{/if}></td>
+    <td><{$log.cname}></td>
+*}>
+    <td><{$log.comment}></td>
+  </tr>
+  <{/foreach}>
+</table>
+<div class="modanchor" style="text-align: right"><a href="<{$block.module_url}>/"><{$smarty.const._BL_LOGTICK_DETAIL}></a></div>

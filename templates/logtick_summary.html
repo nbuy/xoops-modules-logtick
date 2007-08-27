@@ -1,0 +1,54 @@
+<{if $localcss}>
+<style><!--
+<{$localcss}>
+--></style>
+<{/if}>
+<form>
+  <select name="y">
+    <{foreach from=$years item=lab key=val}>
+    <option value="<{$val}>"<{if $val==$year}> selected="selected"<{/if}>><{$lab}></option>
+    <{/foreach}>
+  </select>
+  <select name="m">
+    <{foreach from=$months item=lab key=val}>
+    <option value="<{$val}>"<{if $val==$month}> selected="selected"<{/if}>><{$lab}></option>
+    <{/foreach}>
+  </select>
+  <select name="d">
+    <{foreach from=$days item=lab key=val}>
+    <option value="<{$val}>"<{if $val==$day}> selected="selected"<{/if}>><{$lab}></option>
+    <{/foreach}>
+  </select>
+  <input type="submit" value="<{$smarty.const._MD_SUBMIT_VIEW}>"/>
+</form>
+<h2><{$title}></h2>
+<{if $xoops_isuser}>
+
+<{if $sums}>
+<div id="timestamp"><{$smarty.const._MD_SHOW_TIMESTAMP}> <{$timestamp}></div>
+<table class="outer" cellspacing="0">
+  <tr>
+    <th><{$smarty.const._MD_LOGTICK_CATEGORY}></th>
+    <{foreach from=$labels item=lab}>
+    <th><{$lab}></th>
+    <{/foreach}>
+  </tr>
+<{foreach from=$sums item=sum key=lab}>
+  <tr class="<{cycle values="even, odd"}>">
+    <td><{$lab}></td>
+    <{foreach from=$labels key=i item=lab}>
+    <td><{$sum[$i]}></td>
+    <{/foreach}>
+  </tr>
+<{/foreach}>
+</table>
+<h3><{$smarty.const._MD_SUM_RANGE}></h3>
+<table>
+  <{foreach from=$labels item=lab}>
+    <tr><th align="right"><{$lab}></th><td><{$legends[$lab]}></td></tr>
+  <{/foreach}>
+</table>
+<{else}>
+  <div><{$smarty.const._MD_NODATA}></div>
+<{/if}>
+<{/if}>
