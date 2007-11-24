@@ -4,13 +4,38 @@
 --></style>
 <{/if}>
 <{if $xoops_isuser}>
+<div id="logtickform">
+<form method="post" name="logtickform" onSubmit="return sendPostComment(this); return false;">
+    <a href="category.php"><{$smarty.const._MD_LOGTICK_CATEGORY}></a>
+  <{if $categories}>
+      <select name="catid">
+	<{foreach from=$mycategories item=label key=value}>
+	  <option value="<{$value}>"><{$label}></option>
+	<{/foreach}>
+      </select>
+  <{/if}>
+    &nbsp;
+    <{$smarty.const._MD_TIMESPAN}>
+    <select name="span">
+      <{foreach from=$timespans item=label key=value}>
+	<option value="<{$value}>"><{$label}></option>
+      <{/foreach}>
+    </select>
+    <input name="comment" size="25" maxlength="255"/>
+    <input type="submit" value="<{$smarty.const._MD_SUBMIT}>"/>
+</form>
+</div>
+<hr/>
 <div id="logtickview">
   <form method="get" name="logtickview" id="logtickview" onSubmit="return showNewLogs(this); return false;">
-    <script type="text/javascript">
+    <div id="extraswitch">
+      <script type="text/javascript">
 <!--//
-document.write("<div class='openclose'><input type='checkbox' name='sw' id='sw' onChange='obj=xoopsGetElementById(\"extrasetting\").style; if (this.checked) obj.display=\"block\"; else obj.display=\"none\";'/> <{$smarty.const._MD_SETTING_MORE}></div>");
+document.write("<span class='openclose'><input type='checkbox' name='sw' id='sw' onChange='obj=xoopsGetElementById(\"extrasetting\").style; if (this.checked) obj.display=\"block\"; else obj.display=\"none\";'/> <{$smarty.const._MD_SETTING_MORE}></span> &nbsp;");
 //-->
-    </script>
+      </script>
+      <a href="summary.php"><{$smarty.const._MD_LOGTICK_SUM}></a>
+    </div>
     <div id="extrasetting">
       <div><{$smarty.const._MD_SHOW_USER}></div>
       <{foreach from=$users item=user}>

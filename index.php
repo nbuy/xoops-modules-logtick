@@ -1,6 +1,6 @@
 <?php
 # Logtick main page
-# $Id: index.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+# $Id: index.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
 
 include '../../mainfile.php';
 include 'functions.php';
@@ -36,8 +36,10 @@ include XOOPS_ROOT_PATH.'/header.php';
 $xoopsOption['template_main'] = 'logtick_index.html';
 set_logtick_breadcrumbs();
 
+//$res = $xoopsDB->query("SELECT uid, uname FROM ".$xoopsDB->prefix('users').
+//	  " WHERE uid IN (SELECT luid FROM ".TLOG." GROUP BY luid)");
 $res = $xoopsDB->query("SELECT uid, uname FROM ".$xoopsDB->prefix('users').
-	  " WHERE uid IN (SELECT luid FROM ".TLOG." GROUP BY luid)");
+		       " WHERE uid IN (".get_exists_ids(TLOG, 'luid').")");
 $users=array();
 if ($res && $xoopsDB->getRowsNum($res)) {
     if (isset($_SESSION['logtick']['uids']) && empty($uid)) $uid = $_SESSION['logtick']['uids'];
@@ -50,7 +52,7 @@ if ($res && $xoopsDB->getRowsNum($res)) {
 }
 
 $res = $xoopsDB->query("SELECT catid, cname FROM ".TCAT.
-	  " WHERE catid IN (SELECT pcat FROM ".TLOG." GROUP BY pcat)");
+		       " WHERE catid IN (".get_exists_ids(TLOG, 'pcat').")");
 $categ = array();
 if ($res && $xoopsDB->getRowsNum($res)) {
     if (isset($_SESSION['logtick']['cats']) && empty($catid)) $catid = $_SESSION['logtick']['cats'];
@@ -62,6 +64,10 @@ if ($res && $xoopsDB->getRowsNum($res)) {
     }
 }
 
+// input form
+$xoopsTpl->assign('mycategories', lt_get_categories());
+$xoopsTpl->assign('timespans', lt_split_options($xoopsModuleConfig['timespans']));
+
 $xoopsTpl->assign('users', $users);
 $xoopsTpl->assign('categories', $categ);
 $xoopsTpl->assign('interval', $xoopsModuleConfig['interval']);
@@ -72,4 +78,14 @@ $xoopsTpl->assign("xoops_js", $xoopsTpl->get_template_vars('xoops_js')."\n//--><
 $xoopsTpl->assign('now', time());
 
 include XOOPS_ROOT_PATH.'/footer.php';
+
+function get_exists_ids($table, $idname) {
+    global $xoopsDB;
+    $res = $xoopsDB->query("SELECT $idname FROM $table GROUP BY $idname");
+    $ids = array();
+    while(list($u) = $xoopsDB->fetchRow($res)) {
+	$ids[] = $u;
+    }
+    return count($ids)?join(',', $ids):'NULL';
+}
 ?>

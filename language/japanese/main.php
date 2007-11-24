@@ -1,6 +1,6 @@
 <?php
 # Module Info
-# $Id: main.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+# $Id: main.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
 
 // index.php
 define("_MD_LOGTICK_TITLE","ちょいログ");
@@ -12,7 +12,7 @@ define("_MD_COMMENT","備考");
 define("_MD_LOGUSER","ユーザ");
 define("_MD_NODATA","記録がありません");
 define("_MD_SHOW_TIMESTAMP","表示日時");
-define("_MD_SETTING_MORE","詳細設定");
+define("_MD_SETTING_MORE","フィルタ詳細設定");
 define("_MD_SHOW_USER","表示ユーザ");
 define("_MD_SHOW_CATS","表示カテゴリ");
 define("_MD_SUBMIT_VIEW","表示");
@@ -43,6 +43,7 @@ define("_MD_OPERATION","操作");
 
 // summary.php
 define("_MD_LOGTICK_SUMMARY","%s さんのログ集計");
+define("_MD_LOGTICK_SUM","ログ集計");
 define("_MD_FMT_DAY","%d日");
 define("_MD_FMT_HOUR","%d時間");
 define("_MD_FMT_MIN","%d分");

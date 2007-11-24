@@ -1,5 +1,5 @@
 <?php
-// $Id: xoops_version.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+// $Id: xoops_version.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -52,10 +52,13 @@ $modversion['adminmenu'] = "admin/menu.php";
 
 // Menu
 $modversion['hasMain'] = 1;
-$modversion['sub'][]=array('name'=>_MI_LOGTICK_LOGGER,
-			   'url'=>"logger.php");
-$modversion['sub'][]=array('name'=>_MI_LOGTICK_CATEGORY,
-			   'url'=>"category.php");
+global $xoopsUser;
+if (is_object($xoopsUser)) {
+    $modversion['sub'][]=array('name'=>_MI_LOGTICK_LOGGER,
+			       'url'=>"logger.php");
+    $modversion['sub'][]=array('name'=>_MI_LOGTICK_CATEGORY,
+			       'url'=>"category.php");
+}
 $modversion['sub'][]=array('name'=>_MI_LOGTICK_SUMMARY,
 			   'url'=>"summary.php");
 // Templates

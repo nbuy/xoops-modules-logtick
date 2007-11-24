@@ -1,6 +1,6 @@
 <?php
 # Logtick summary page
-# $Id: summary.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+# $Id: summary.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
 
 include '../../mainfile.php';
 include 'functions.php';
@@ -42,7 +42,7 @@ $xoopsOption['template_main'] = 'logtick_summary.html';
 
 if (preg_match('/^\d+$/', $uid)) {
     $title =  sprintf(_MD_LOGTICK_SUMMARY, xoops_getLinkedUnameFromId($uid));
-} else $title = _MD_LOGTICK_ALL;
+} else $title = _MD_LOGTICK_SUM;
 set_logtick_breadcrumbs(array(strip_tags($title)=>'summary.php'));
 
 $xoopsTpl->assign('title', $title);
