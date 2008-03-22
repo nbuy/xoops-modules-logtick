@@ -1,6 +1,6 @@
 <?php
 # Module Info
-# $Id: main.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
+# $Id: main.php,v 1.3 2008/03/22 05:34:39 nobu Exp $
 
 // index.php
 define("_MD_LOGTICK_TITLE","ちょいログ");
@@ -19,8 +19,6 @@ define("_MD_SUBMIT_VIEW","表示");
 define("_MD_SPAN_EDIT_SEC","3600=%dh,60=%dm");
 #define("_MD_SPAN_EDIT_SEC","3600=%d時間,60=%d分");
 
-// logger.php
-define("_MD_LOGTICK_LOGGER","ログ入力");
 // editlog.php
 define("_MD_LOGTICK_EDITLOG","ログの編集");
 define("_MD_LOGDATE","作成日時");

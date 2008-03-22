@@ -1,6 +1,6 @@
 <?php
 # Logtick main page
-# $Id: index.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
+# $Id: index.php,v 1.3 2008/03/22 05:34:39 nobu Exp $
 
 include '../../mainfile.php';
 include 'functions.php';
@@ -18,6 +18,8 @@ if ($after || isset($_GET['uids'])) {
 	$_SESSION['logtick']['uids'] = $uid;
 	$after = 1;
     }
+} elseif (!$after) {
+    $uid = isset($_SESSION['logtick']['uids'])?$_SESSION['logtick']['uids']:0;
 }
 
 if ($after || isset($_GET['cats'])) {
@@ -26,6 +28,33 @@ if ($after || isset($_GET['cats'])) {
     if (!isset($_SESSION['logtick']['cats']) || $_SESSION['logtick']['cats']!=$catid) {
 	$_SESSION['logtick']['cats'] = $catid;
 	$after = 1;
+    } else {
+	$catid = $_SESSION['logtick']['cats'];
+    }
+} elseif (!$after) {
+    $catid = isset($_SESSION['logtick']['cats'])?$_SESSION['logtick']['cats']:'';
+}
+
+$now = time();
+if (!empty($_POST['comment']) && is_object($xoopsUser)) {
+    $comment = trim($myts->stripSlashesGPC($_POST['comment']));
+    if (isset($_POST['after'])) {
+	$comment = mb_convert_encoding($comment, _CHARSET, 'UTF-8');
+    }
+    $luid = $xoopsUser->getVar('uid');
+    $lcatid = isset($_POST['catid'])?intval($_POST['catid']):0;
+    $span = isset($_POST['span'])?$myts->stripSlashesGPC($_POST['span']):'';
+    $values = array('pcat'=>$lcatid, 'lspan'=>span2sec($span),
+		    'luid'=>$luid, 'ltime'=>$now,
+		    'mtime'=>isset($_POST['mtime'])?strtotime($_POST['mtime']):$now,
+		    'comment'=>$xoopsDB->quoteString($comment));
+    if ($comment) {		// ignore no comment
+	$xoopsDB->query("INSERT INTO ".TLOG."(".join(',', array_keys($values)).") VALUES (".join(',', $values).")");
+	$after = 1;
+    }
+    if (isset($_POST['opt']) && empty($_POST['opt'])) {
+	echo "<script>history.go(-1);</script>";
+	exit;
     }
 }
 
@@ -75,7 +104,7 @@ $xoopsTpl->assign('interval', $xoopsModuleConfig['interval']);
 $modurl = XOOPS_URL.'/modules/'.basename(dirname(__FILE__));
 $xoopsTpl->assign('logresult', show_list($uid, $catid));
 $xoopsTpl->assign("xoops_js", $xoopsTpl->get_template_vars('xoops_js')."\n//--></script><script type='text/javascript' src='$modurl/logtick.js'><!--");
-$xoopsTpl->assign('now', time());
+$xoopsTpl->assign('now', $now);
 
 include XOOPS_ROOT_PATH.'/footer.php';
 

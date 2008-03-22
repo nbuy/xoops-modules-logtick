@@ -1,6 +1,6 @@
 <?php
 # Logtick main page
-# $Id: category.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+# $Id: category.php,v 1.2 2008/03/22 05:34:39 nobu Exp $
 
 include '../../mainfile.php';
 include 'functions.php';
@@ -20,7 +20,7 @@ if (isset($_POST['cname'])) {
     $qname = $xoopsDB->quoteString($cname);
     $qdesc = $xoopsDB->quoteString($myts->stripSlashesGPC($_POST['description']));
     if (empty($cname)) {
-	redirect_header('logger.php', 1, _MD_CATEGORY_NOTDEFINED);
+	redirect_header('index.php', 1, _MD_CATEGORY_NOTDEFINED);
     } elseif ($catid) {
 	$xoopsDB->query("UPDATE ".TCAT." SET cname=$qname, description=$qdesc WHERE catid=$catid AND cuid=$uid");
     } else {

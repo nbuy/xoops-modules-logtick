@@ -1,6 +1,6 @@
 <?php
 # Logtick main page
-# $Id: editlog.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+# $Id: editlog.php,v 1.2 2008/03/22 05:34:39 nobu Exp $
 
 include '../../mainfile.php';
 include 'functions.php';
@@ -23,12 +23,12 @@ if (isset($_POST['store'])) {
     $values[] = 'lspan='.span2sec($myts->stripSlashesGPC($_POST['span']));
     $res = $xoopsDB->query("UPDATE ".TLOG." SET ".join(',', $values)." WHERE logid=".$logid);
     echo $xoopsDB->error();
-    redirect_header('logger.php', 1, _MD_LOGTICK_STORED);
+    redirect_header('index.php', 1, _MD_LOGTICK_STORED);
     exit;
 } else if (isset($_POST['delete'])) {
     $logid = intval($_POST['logid']);
     $res = $xoopsDB->query("DELETE FROM ".TLOG." WHERE logid=$logid");
-    redirect_header('logger.php', 1, _MD_LOGTICK_DELETED);
+    redirect_header('index.php', 1, _MD_LOGTICK_DELETED);
     exit;
 }
 
@@ -36,7 +36,7 @@ include XOOPS_ROOT_PATH.'/header.php';
 
 $xoopsOption['template_main'] = 'logtick_editlog.html';
 
-set_logtick_breadcrumbs(array(_MD_LOGTICK_EDITLOG=>'logger.php'));
+set_logtick_breadcrumbs(array(_MD_LOGTICK_EDITLOG=>'index.php'));
 
 $res = $xoopsDB->query("SELECT * FROM ".TLOG." WHERE logid=$logid");
 $data = $xoopsDB->fetchArray($res);

@@ -23,7 +23,7 @@ function sendPostComment(myform) {
 	if (ele.name!="") args.push(ele.name+"="+encodeURIComponent(ele.value));
     }
     args.push("after=0");
-    xmlhttp.open("POST", "logger.php");
+    xmlhttp.open("POST", "index.php");
     xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function() {
 	if (xmlhttp.readyState == 4 && xmlhttp.responseText != "") {

@@ -1,4 +1,4 @@
-<form action="<{$block.module_url}>/logger.php" method="post">
+<form action="<{$block.module_url}>/index.php" method="post">
   <{if $block.categories}>
   <div class="logcats" id="b_logcat">
     <{$smarty.const._BL_LOGTICK_CATEGORY}>
@@ -24,4 +24,4 @@
   <input type="submit" value="<{$smarty.const._BL_LOGTICK_SUBMIT}>"/>
   <input type="hidden" name="opt" value="<{$block.options[0]}>"/>
 </form>
-<div class="modanchor" style="text-align: right"><a href="<{$block.module_url}>/logger.php"><{$smarty.const._BL_LOGTICK_DETAIL}></a></div>
+<div class="modanchor" style="text-align: right"><a href="<{$block.module_url}>/index.php"><{$smarty.const._BL_LOGTICK_DETAIL}></a></div>

@@ -1,6 +1,6 @@
 <?php
 # Logtick common functions
-# $Id: functions.php,v 1.1 2007/08/27 02:42:20 nobu Exp $
+# $Id: functions.php,v 1.2 2008/03/22 05:34:39 nobu Exp $
 
 if (!defined('XOOPS_ROOT_PATH')) die('illigal call');
 
@@ -17,7 +17,7 @@ function lt_get_categories($uid=0, $detail=false) {
 
     $myts =& MyTextSanitizer::getInstance();
     
-    if ($uid==0) $uid = $xoopsUser->getVar('uid');
+    if ($uid==0 && is_object($xoopsUser)) $uid = $xoopsUser->getVar('uid');
     $res = $xoopsDB->query("SELECT c.* FROM ".TCAT." c, ".TUC." WHERE uidref=$uid AND catref=catid ORDER BY weight, cname");
     $ret = array();
     if (empty($res) || $xoopsDB->getRowsNum($res) == 0) return $ret;
@@ -97,7 +97,7 @@ class pastTime {
     }
 }
 
-function show_list($uid, $catid="", $after=0, $style=LT_STYLE_NORMAL) {
+function show_list($uid, $catid="", $after=0, $style=LT_STYLE_OWNER) {
     global $xoopsDB, $xoopsConfig, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
     require_once XOOPS_ROOT_PATH.'/class/template.php';
     require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
@@ -138,11 +138,14 @@ function show_list($uid, $catid="", $after=0, $style=LT_STYLE_NORMAL) {
     if ($catid) $args[] = "catid=$catid";
     $nav = new XoopsPageNav($count, $max, $start, "start", join("&", $args));
 
+    $euid = is_object($xoopsUser)?$xoopsUser->getVar('uid'):0;
+    $upnew = $xoopsModuleConfig['newentry'];
+    if ($euid) {
+	$cond = "($cond) OR (luid=$euid AND ($now-ltime)<=$upnew)";
+    }
     $tpl->assign(array('pagenav'=>$nav->renderNav(), 'count'=>$count, 'maxpage'=>intval(($count+$max-1)/$max), 'current'=>intval($start/$max)+1));
     $res = $xoopsDB->query("SELECT l.*, cname, uname, user_avatar FROM ".TLOG." l LEFT JOIN ".TCAT." ON pcat=catid LEFT JOIN $users ON luid=uid WHERE $cond ORDER BY mtime DESC", $max, $start);
-    $upnew = $xoopsModuleConfig['newentry'];
     $logs = array();
-    $euid = is_object($xoopsUser)?$xoopsUser->getVar('uid'):0;
     if ($xoopsDB->getRowsNum($res)) {
 	$ptime = new pastTime();
 	while ($data = $xoopsDB->fetchArray($res)) {

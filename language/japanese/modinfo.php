@@ -1,5 +1,5 @@
 <?php
-// $Id: modinfo.php,v 1.2 2007/11/24 09:49:13 nobu Exp $
+// $Id: modinfo.php,v 1.3 2008/03/22 05:34:39 nobu Exp $
 // Module Info
 
 // The name of this module
@@ -9,7 +9,6 @@ define("_MI_LOGTICK_NAME","ちょいログ");
 define("_MI_LOGTICK_DESC","ちょっとした作業記録を行う");
 
 // Sub Menu
-define("_MI_LOGTICK_LOGGER", "ログ入力");
 define("_MI_LOGTICK_SUMMARY", "ログ集計");
 define("_MI_LOGTICK_CATEGORY", "カテゴリ");
 
