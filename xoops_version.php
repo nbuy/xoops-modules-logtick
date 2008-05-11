@@ -1,5 +1,5 @@
 <?php
-// $Id: xoops_version.php,v 1.3 2008/03/22 05:34:39 nobu Exp $
+// $Id: xoops_version.php,v 1.4 2008/05/11 05:19:20 nobu Exp $
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -71,10 +71,6 @@ $modversion['templates'][] =
 $modversion['templates'][] =
     array('file' => 'logtick_category.html',
 	  'description' => _MI_LOGTICK_CATEGORY_TPL);
-
-$modversion['templates'][] =
-    array('file' => 'logtick_logger.html',
-	  'description' => _MI_LOGTICK_LOGGER_TPL);
 
 $modversion['templates'][] =
     array('file' => 'logtick_editlog.html',

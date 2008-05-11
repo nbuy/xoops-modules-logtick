@@ -1,5 +1,5 @@
 <?php
-// $Id: modinfo.php,v 1.3 2008/03/22 05:34:39 nobu Exp $
+// $Id: modinfo.php,v 1.4 2008/05/11 05:19:20 nobu Exp $
 // Module Info
 
 // The name of this module
@@ -31,8 +31,8 @@ define("_MI_LOGTICK_TIMESPANS","作業時間選択肢");
 define("_MI_LOGTICK_TIMESPANS_DESC","'<tt>ラベル=時間単位</tt>' をカンマならびで指定する");
 define("_MI_LOGTICK_TIMESPANS_DEF","なし=0,30分=30m,1時間=1h,2時間=2h,3時間=3h,4時間=4h,5時間=5h,6時間=6h,7時間=7h,1日=8h,2日=16h,3日=24h,4日=32h,1週=40h");
 
-define("_MI_LOGTICK_TIMEFORMAT_DEF","1d=h:i,14d=m-d h:i,0=Y-m-d h:i");
 define("_MI_LOGTICK_TIMEFORMAT","時間表現形式");
+define("_MI_LOGTICK_TIMEFORMAT_DEF","1d=H:i,14d=m-d H:i,0=Y-m-d H:i");
 define("_MI_LOGTICK_TIMEFORMAT_DESC","PHP date 形式で'<tt>経過時間=date書式</tt>' のカンマならびで指定する。<div>例: <tt>"._MI_LOGTICK_TIMEFORMAT_DEF."</tt></div>");
 
 define("_MI_LOGTICK_LOCALCSS","スタイル指定");
@@ -47,7 +47,7 @@ define("_MI_LOGTICK_NEWENTRY","新着表示時間");
 define("_MI_LOGTICK_NEWENTRY_DESC","新着属性を指定する時間範囲を秒数で指定する (0: 表示しない)");
 
 define("_MI_LOGTICK_BOUND","境界時間");
-define("_MI_LOGTICK_BOUND_DESC","集計用の境界時間および月初日、デフォルト表示切り替え日を指定する。例: \"05:00,5,10\" で午前5時以前は前日として扱い 5日から今月として扱う。");
+define("_MI_LOGTICK_BOUND_DESC","集計用の境界時間および月初日、デフォルト表示切り替え日を指定する。例: \"05:00,5,10\" で午前5時以前は前日として扱い 5日から今月として扱う。集計は10日までは前月分をデフォルト表示とする。");
 define("_MI_LOGTICK_BOUND_DEF","05:00,1,10");
 
 define("_MI_LOGTICK_INTERVAL","自動更新間隔");
